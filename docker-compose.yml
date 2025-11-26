@@ -1,14 +1,40 @@
+version: "3.3"
+
 services:
-  db:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: appdb
+  frontend:
+    build: ./frontend
+    container_name: frontend
     ports:
-      - "5432:5432"
+      - "8080:80"
+    restart: always
+
+  backend:
+    build: ./backend
+    container_name: backend
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres:5432/appdb?schema=public
+      JWT_SECRET: "supersecretjwt"
+      JWT_EXPIRES_IN: "7d"
+      PORT: 3000
+
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: appdb
     volumes:
       - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
 volumes:
   dbdata:
