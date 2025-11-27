@@ -5,8 +5,10 @@ services:
     build: ./frontend
     container_name: frontend
     ports:
-      - "8080:80"
+      - "5173:5173"
     restart: always
+    networks:
+      - humopharm
 
   backend:
     build: ./backend
@@ -22,6 +24,8 @@ services:
     depends_on:
       - postgres
     restart: always
+    networks:
+      - humopharm
 
   postgres:
     image: postgres:17-alpine
@@ -35,6 +39,12 @@ services:
     ports:
       - "5432:5432"
     restart: always
+    networks:
+      - humopharm
 
 volumes:
   dbdata:
+
+networks:
+  humopharm:
+    driver: bridge
