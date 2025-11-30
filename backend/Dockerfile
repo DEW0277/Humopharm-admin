@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y openssl ca-certificates && rm -rf /var/
 COPY package*.json ./
 RUN npm install
 COPY prisma ./prisma
-RUN npx prisma migrate
 COPY . .
+RUN npx prisma migrate
 RUN npm run build
 CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev"]
 #CMD ["npm", "run", "start:dev"]
