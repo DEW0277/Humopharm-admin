@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm install
 COPY prisma ./prisma
 COPY . .
-RUN npx prisma generate
+RUN npx prisma migrate dev --name init
+RUN npm run seed
 RUN npm run build
 CMD ["npm", "run", "start:dev"]
