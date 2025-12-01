@@ -6,8 +6,10 @@ COPY package*.json ./
 RUN npm install
 COPY prisma ./prisma
 COPY . .
+RUN npm i -D ts-node typescript @types/node
 RUN npx prisma generate
 RUN npx prisma migrate
+RUN npx prisma db seed
 RUN npm run build
 CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev"]
 #CMD ["npm", "run", "start:dev"]
