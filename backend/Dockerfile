@@ -10,5 +10,5 @@ RUN npm i -D ts-node typescript @types/node
 RUN npx prisma generate
 RUN npx prisma migrate
 RUN npm run build
-CMD ["sh", "-c", "npx prisma migrate deploy && npx ts-node prisma/seed.ts && npm run start:dev"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev && sleep 10 && npx ts-node prisma/seed.ts"]
 #CMD ["npm", "run", "start:dev"]
