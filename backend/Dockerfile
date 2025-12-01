@@ -11,5 +11,5 @@ RUN npx prisma generate
 RUN npx prisma migrate
 #RUN npx prisma db seed
 RUN npm run build
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm run start:dev"]
 #CMD ["npm", "run", "start:dev"]
