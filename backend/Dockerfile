@@ -8,8 +8,7 @@ COPY prisma ./prisma
 COPY . .
 RUN npm i -D ts-node typescript @types/node
 RUN npx prisma generate
-RUN npx prisma migrate
-#RUN npx prisma db seed
+RUN npx prisma migrate -y 
 RUN npm run build
-CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed && npm run start:dev"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx ts-node prisma/seed.ts && npm run start:dev"]
 #CMD ["npm", "run", "start:dev"]
