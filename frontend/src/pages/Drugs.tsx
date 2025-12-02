@@ -28,7 +28,7 @@ const drugCategories = [
 ];
 
 export default function Drugs() {
-  const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000/api";
+  const API_URL = import.meta.env.VITE_API_URL ?? "http://humopharmgroup.uz/api";
 
   const [data, setData] = useState<Drug[]>([]);
   const [loading, setLoading] = useState(false);
